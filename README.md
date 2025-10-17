@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nested Menu Drawer
 
-## Getting Started
+A fully accessible, animated drawer component for React/Next.js with nested navigation support, smooth transitions, and keyboard shortcuts.
 
-First, run the development server:
+> [!Note]
+> Deployed : https://nested-drawer.milind.app
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+
+- Direction-aware navigation with smooth slide animations
+- Automatic height transitions between menu levels
+- Keyboard accessible (Tab, Escape, Cmd/Ctrl+K)
+- Compound component pattern for flexible composition
+- TypeScript support
+- Built with Framer Motion and Tailwind CSS
+
+## Usage
+
+```tsx
+import { NestedDrawer, TMenuItem } from "@/components/nested-drawer";
+
+const menuData: TMenuItem[] = [
+  {
+    id: "home",
+    title: "Home",
+    description: "Go to homepage",
+    icon: <HomeIcon />,
+    onClick: () => console.log("Home clicked"),
+  },
+  {
+    id: "products",
+    title: "Products",
+    description: "Browse products",
+    icon: <PackageIcon />,
+    children: [
+      {
+        id: "software",
+        title: "Software",
+        icon: <ServerIcon />,
+        onClick: () => console.log("Software clicked"),
+      },
+    ],
+  },
+];
+
+function App() {
+  return (
+    <NestedDrawer initialMenu={menuData}>
+      <NestedDrawer.Trigger>Open Menu</NestedDrawer.Trigger>
+      <NestedDrawer.Content title="Main Menu">
+        <NestedDrawer.Menu />
+      </NestedDrawer.Content>
+    </NestedDrawer>
+  );
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## API
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### NestedDrawer
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Main container component.
 
-## Learn More
+- `initialMenu`: Array of menu items to display
+- `children`: Compound components (Trigger, Content)
 
-To learn more about Next.js, take a look at the following resources:
+### TMenuItem
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```ts
+type TMenuItem = {
+  id: string; // Unique identifier
+  title: string; // Display text
+  description?: string; // Optional subtitle
+  icon?: React.ReactNode; // Optional icon
+  children?: TMenuItem[]; // Nested menu items
+  onClick?: () => void; // Action when clicked (leaf items)
+};
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Components
 
-## Deploy on Vercel
+- `NestedDrawer.Trigger`: Button to open the drawer
+- `NestedDrawer.Content`: Drawer overlay and container
+- `NestedDrawer.Menu`: Renders the current menu level
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Keyboard Shortcuts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `Cmd+K` or `Ctrl+K`: Open drawer
+- `Escape`: Go back one level or close drawer
+- `Tab` / `Shift+Tab`: Navigate between items
+- `Enter` / `Space`: Select item
