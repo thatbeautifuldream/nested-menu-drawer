@@ -281,10 +281,8 @@ function Menu() {
   };
 
   return (
-    // Using "wait" instead of "popLayout" to prevent ghosting in exit animations.
-    // "popLayout" causes ghosting due to absolute positioning conflicts during menu transitions.
-    // <AnimatePresence initial={false} mode="popLayout" custom={direction}>
-    <AnimatePresence initial={false} mode="wait" custom={direction}>
+    // <AnimatePresence initial={false} mode="wait" custom={direction}>
+    <AnimatePresence initial={false} mode="popLayout" custom={direction}>
       <motion.div
         key={currentMenu[0]?.id || "root"}
         custom={direction}
