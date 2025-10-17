@@ -346,7 +346,7 @@ function MenuItem({ item }: TMenuItemProps) {
       transition={{ duration: 0.1 }}
     >
       {item.icon && (
-        <div className="flex-shrink-0 mt-0.5 text-muted-foreground">
+        <div className="flex-shrink-0 mt-1 text-muted-foreground">
           {item.icon}
         </div>
       )}
