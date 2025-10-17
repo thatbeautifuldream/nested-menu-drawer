@@ -1,6 +1,6 @@
 # Nested Menu Drawer
 
-A fully accessible, animated drawer component for React/Next.js with nested navigation support, smooth transitions, and keyboard shortcuts.
+A fully accessible, animated drawer component for React with nested navigation support, smooth transitions, and keyboard shortcuts.
 
 > [!Note]
 > Deployed : https://nested-drawer.milind.app
