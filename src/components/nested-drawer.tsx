@@ -248,9 +248,7 @@ function Content({ title, children }: TContentProps) {
                 )}
 
                 <div className="px-1 py-4 max-h-[calc(85vh-4rem)] overflow-y-auto overflow-x-hidden">
-                  <div className="px-3">
-                    {children || <Menu />}
-                  </div>
+                  <div className="px-3">{children || <Menu />}</div>
                 </div>
               </div>
             </motion.div>
@@ -283,7 +281,10 @@ function Menu() {
   };
 
   return (
-    <AnimatePresence initial={false} mode="popLayout" custom={direction}>
+    // Using "wait" instead of "popLayout" to prevent ghosting in exit animations.
+    // "popLayout" causes ghosting due to absolute positioning conflicts during menu transitions.
+    // <AnimatePresence initial={false} mode="popLayout" custom={direction}>
+    <AnimatePresence initial={false} mode="wait" custom={direction}>
       <motion.div
         key={currentMenu[0]?.id || "root"}
         custom={direction}
